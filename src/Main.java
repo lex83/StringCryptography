@@ -16,7 +16,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("Введите ключ шифрования");
-                    cryptography.decrypt(getValueShowMessage());
+                    cryptography.decryptToFile(getValueShowMessage());
                     break;
                 case 3:
                     System.out.println("Ключ шифрования :" + cryptography.bruteForce());

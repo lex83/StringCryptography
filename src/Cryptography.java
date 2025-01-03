@@ -4,26 +4,21 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class Cryptography {
-    private static ArrayList<Character> alphabet = Alphabet.getAlphabet();
+    private final static ArrayList<Character> alphabet = Alphabet.getAlphabet();
     private static final String IN_DATA = "resources\\data.txt";
     private static final String OUT_DATA_ENCRYPTED = "resources\\encrypted.txt";
     private static final String OUT_DATA_DECRYPTED = "resources\\decrypted.txt";
     private static final String IN_DATA_DICTIONARY = "resources\\dictionary.txt";
-    private static final String OUT_DATA_KEYS = "resources\\data.txt";
 
     public void encrypt(int keyCrypt) {
         String inData = readFile(IN_DATA);
-
         String outData = getMovingString(keyCrypt, inData);
-
         fileWrite(outData, OUT_DATA_ENCRYPTED);
     }
 
-    public void decrypt(int keyCrypt) {
+    public void decryptToFile(int keyCrypt) {
         String encrypredData = readFile(OUT_DATA_ENCRYPTED);
-
         String decryptedData = getMovingString(keyCrypt*-1, encrypredData);
-
         fileWrite(decryptedData, OUT_DATA_DECRYPTED);
     }
 
@@ -38,11 +33,8 @@ public class Cryptography {
         return returnKeyMaximumValue(iterateKeysAndValues);
     }
 
-    private String decrypt(int keyCrypt, String input) {
-
-        String decryptedData = getMovingString(keyCrypt*-1, input);
-
-        return decryptedData;
+    private String decrypttoString(int keyCrypt, String input) {
+        return getMovingString(keyCrypt*-1, input);
     }
 
     private String getMovingString(int keyCrypt, String inData) {
@@ -96,7 +88,7 @@ public class Cryptography {
         String decrypted;
         HashMap<Integer, Integer> result = new HashMap<>();
         for (int key = 0; key < alphabet.size(); key++) {
-            decrypted = decrypt(key, encrypted).substring(0, 1000);
+            decrypted = decrypttoString(key, encrypted).substring(0, 1000);
             int valueWord = 0;
             for (String string : wordsCounter.keySet()) {
                 valueWord += compareSimilarity(decrypted, string, 3);
